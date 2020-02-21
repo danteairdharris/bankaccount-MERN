@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Account = props => (
     <tr>
         <td>{props.account.accountname}</td>
         <td>{props.account.balance}</td>
+        <td>
+            < Link to={"/deposit/"+props.account._id}>Deposit</Link> | < Link to={"/withdraw/"+props.account._id}>Withdraw</Link>
+        </td>
     </tr>
 )
 
@@ -22,7 +26,7 @@ export default class AccountInfo extends Component {
             axios.get('http://localhost:5000/account')
             .then( (response) => {
                 this.setState({
-                    balance: response.data.balance
+                    accounts: response.data
                 })
             })
             .catch( (err) => {
@@ -45,6 +49,7 @@ export default class AccountInfo extends Component {
                 <tr>
                   <th>Accountname</th>
                   <th>Balance</th>
+                  <th>...</th>
                 </tr>
               </thead>
               <tbody>

@@ -23,10 +23,11 @@ router.route('/:id').get((req,res) => {
     .catch ( (err) => res.status(400).json('Error: ' + err));
 })
 
+
 router.route('/deposit/:id').post((req,res) => {
     Account.findById(req.params.id)
     .then( (account) => { 
-        account.balance += req.body.deposit;
+        account.balance = (Number(account.balance) + Number(req.body.deposit));
         account.save()
         .then( () => res.json('Deposit saved!'))
         .catch( (err) => res.status(400).json('Error: ' + err));
@@ -37,7 +38,7 @@ router.route('/deposit/:id').post((req,res) => {
 router.route('/withdraw/:id').post((req,res) => {
     Account.findById(req.params.id)
     .then( (account) => {
-        account.balance -= req.body.withdraw;
+        account.balance = (Number(account.balance) - Number(req.body.withdraw));
         account.save()
         .then( () => res.json('Withdrawal Saved!'))
         .catch( (err) => res.status(400).json('Error: ' + err));

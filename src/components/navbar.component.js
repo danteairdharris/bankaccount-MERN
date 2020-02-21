@@ -13,7 +13,7 @@ export default class Navbar extends Component {
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
               <ul className="navbar-nav">
                 <li className="nav-item active">
-                  <Link to="/" className="nav-link">Account</Link>
+                  <Link to="/" className="nav-link">Accounts</Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/new" className="nav-link">CreateAccount</Link>

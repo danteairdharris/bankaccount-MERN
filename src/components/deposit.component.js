@@ -6,44 +6,49 @@ export default class NewAccount extends Component {
     constructor(props) {
         super(props);
 
-        this.onChangeAccountname = this.onChangeAccountname.bind(this);
-        this.onChangeBalance = this.onChangeBalance.bind(this);
+        this.setDeposit = this.setDeposit.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             accountname: "",
-            balance: ""
+            balance: "",
+            deposit: "",
+            withdraw: ""
         }
     }
 
-    onChangeAccountname(e) {
-        this.setState({
-            accountname: e.target.value
+    componentDidMount() {
+        axios.get('http://localhost:5000/account/'+this.props.match.params.id)
+        .then( (response) => {
+            this.setState({
+                accountname: response.data.accountname,
+                balance: response.data.balance,
+                deposit: 0,
+                withdraw: 0
+            })
         })
+        .catch( (err) => console.log('Error: ' + err));
     }
 
-    onChangeBalance(e) {
+    setDeposit(e) {
         this.setState({
-            balance: e.target.value
+            deposit: e.target.value
         })
     }   
 
     onSubmit(e) {
         e.preventDefault();
+        
         const account = {
             accountname: this.state.accountname,
-            balance: this.state.balance
+            balance: this.state.balance,
+            deposit: this.state.deposit,
+            withdraw: 0
         }
 
-        console.log(account);
-        
-        axios.post('http://localhost:5000/account/new', account)
+        axios.post('http://localhost:5000/account/deposit/'+this.props.match.params.id, account)
         .then( (res) => console.log(res.data))
         .catch( (err) => console.log('Error :' + err));
-
-        this.setState({
-            accountname: " "
-        })
 
         window.location = "/";
     }
@@ -54,20 +59,12 @@ export default class NewAccount extends Component {
               <h3> Create New Account</h3>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
-                    <label>Account name: </label>
+                    <label>Deposit: </label>
                     <input type="text"
                     required
                     className="form-control"
-                    value={this.state.accountname}
-                    onChange={this.onChangeAccountname}/>
-                </div>
-                <div className="form-group">
-                    <label>Balance: </label>
-                    <input type="text"
-                    required
-                    className="form-control"
-                    value={this.state.balance}
-                    onChange={this.onChangeBalance}/>
+                    value={this.state.deposit}
+                    onChange={this.setDeposit}/>
                 </div>
                 <div className="form-group">
                     <input type="submit"
