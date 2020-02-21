@@ -68,7 +68,7 @@ export default class NewAccount extends Component {
                 </div>
                 <div className="form-group">
                     <input type="submit"
-                    value="Create Account"
+                    value="Deposit"
                     className="btn btn-primary"/>
                 </div>
               </form>
