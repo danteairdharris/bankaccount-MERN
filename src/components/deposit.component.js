@@ -55,7 +55,7 @@ export default class NewAccount extends Component {
 
     render() {
         return(
-            <div>
+            <div class="container">
               <h3> Create New Account</h3>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">

@@ -42,7 +42,7 @@ export default class AccountInfo extends Component {
 
     render() {
         return(
-            <div>
+            <div class="container">
             <h3>Accounts</h3>
             <table className="table">
               <thead className="thead-light">
