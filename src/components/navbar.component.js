@@ -16,12 +16,6 @@ export default class Navbar extends Component {
                   <Link to="/" className="nav-link">Account</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/deposit" className="nav-link">Deposit</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/withdraw" className="nav-link">Withdraw</Link>
-                </li>
-                <li className="nav-item">
                   <Link to="/new" className="nav-link">CreateAccount</Link>
                 </li>
               </ul>

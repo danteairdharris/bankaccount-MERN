@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class NewAccount extends Component {
 
     constructor(props) {
         super(props);
 
-        this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangeAccountname = this.onChangeAccountname.bind(this);
         this.onChangeBalance = this.onChangeBalance.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
-            username: "",
+            accountname: "",
             balance: ""
         }
     }
 
-    onChangeUsername(e) {
+    onChangeAccountname(e) {
         this.setState({
-            username: e.target.value
+            accountname: e.target.value
         })
     }
 
@@ -30,12 +31,21 @@ export default class NewAccount extends Component {
     onSubmit(e) {
         e.preventDefault();
         const account = {
-            username: this.state.username,
+            accountname: this.state.accountname,
             balance: this.state.balance
         }
 
         console.log(account);
-        window.location = '/'
+        
+        axios.post('http://localhost:5000/account/new', account)
+        .then( (res) => console.log(res.data))
+        .catch( (err) => console.log('Error :' + err));
+
+        this.setState({
+            accountname: " "
+        })
+
+        window.location = "/";
     }
 
     render() {
@@ -44,12 +54,12 @@ export default class NewAccount extends Component {
               <h3> Create New Account</h3>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
-                    <label>Username: </label>
+                    <label>Account name: </label>
                     <input type="text"
                     required
                     className="form-control"
-                    value={this.state.username}
-                    onChange={this.onChangeUsername}/>
+                    value={this.state.accountname}
+                    onChange={this.onChangeAccountname}/>
                 </div>
                 <div className="form-group">
                     <label>Balance: </label>
